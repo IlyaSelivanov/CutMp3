@@ -11,7 +11,7 @@ namespace CutMp3.UIConsole
         {
             var source = @"C:\Users\Ilya\Downloads\";
             var youtube = YouTube.Default;
-            var vid = youtube.GetVideo("https://www.youtube.com/watch?v=26zPA3mA7mk");
+            var vid = youtube.GetVideo("https://www.youtube.com/watch?v=Z1Ja2_NHEi8");
             File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
 
             var inputFile = new MediaFile { Filename = source + vid.FullName };
