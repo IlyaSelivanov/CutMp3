@@ -1,7 +1,24 @@
 ﻿@page "/"
+@using CutMp3.Domain.Models
 
-<h1>Hello, world!</h1>
+<EditForm Model="@downloadSettings">
+    <div class="form-group row">
+        <label for="url" class="col-sm-2 col-form-label">
+            Url
+        </label>
+        <div class="col-sm-10">
+            <InputText id="url" class="form-control" placeholder="Url"
+                       @bind-Value="downloadSettings.Url" />
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit" @onclick=HandleSubmit>Submit</button>
+</EditForm>
 
-Welcome to your new app.
+@code {
+    private DownloadSettings downloadSettings = new();
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    public async Task HandleSubmit()
+    {
+        await Task.Delay(1000);
+    }
+}

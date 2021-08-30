@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CutMp3.Domain\CutMp3.Domain.csproj" />
     <ProjectReference Include="..\Shared\CutMp3.WebApp.Shared.csproj" />
   </ItemGroup>
 

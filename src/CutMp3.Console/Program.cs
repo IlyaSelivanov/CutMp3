@@ -1,28 +1,36 @@
-﻿using MediaToolkit;
-using MediaToolkit.Model;
-using System.IO;
-using VideoLibrary;
+﻿using CutMp3.Application;
+using System;
+using System.Threading.Tasks;
 
 namespace CutMp3.UIConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            var source = @"C:\Users\Ilya\Downloads\";
-            var youtube = YouTube.Default;
-            var vid = youtube.GetVideo("https://www.youtube.com/watch?v=Z1Ja2_NHEi8");
-            File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
+            //string line = "07. Sleeping Forest - Alone in the Night 47:45";
+            //DownloadFromYoutube("https://www.youtube.com/watch?v=w6eyvCzlBac");
 
-            var inputFile = new MediaFile { Filename = source + vid.FullName };
-            var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
-
-            using (var engine = new Engine())
-            {
-                engine.GetMetadata(inputFile);
-
-                engine.Convert(inputFile, outputFile);
-            }
+            YoutubeDownloader downloader = new YoutubeDownloader(@"C:\Users\Ilya\Downloads\");
+            Console.WriteLine(await downloader.DownloadUrl("https://www.youtube.com/watch?v=XnURvcdOUvY"));
         }
+
+        //static void DownloadFromYoutube(string url)
+        //{
+        //    var source = @"C:\Users\Ilya\Downloads\";
+        //    var youtube = YouTube.Default;
+        //    var vid = youtube.GetVideo(url);
+        //    File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
+
+        //    var inputFile = new MediaFile { Filename = source + vid.FullName };
+        //    var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
+
+        //    using (var engine = new Engine())
+        //    {
+        //        engine.GetMetadata(inputFile);
+
+        //        engine.Convert(inputFile, outputFile);
+        //    }
+        //}
     }
 }
