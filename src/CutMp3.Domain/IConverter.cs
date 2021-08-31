@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CutMp3.Domain
+﻿namespace CutMp3.Domain
 {
     public interface IConverter
     {
