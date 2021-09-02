@@ -2,33 +2,39 @@
 @using CutMp3.Domain.Models
 @inject HttpClient _httpClient
 
-<EditForm Model="@_downloadSettings" OnValidSubmit="@HandleSubmit">
-	<div class="form-row">
-		<div class="form-group col-md-6">
-			<label for="url">Url</label>
-			<InputText id="url" class="form-control" placeholder="Url"
-					   @bind-Value="_downloadSettings.Url" />
+@*<div class="container">*@
+	<EditForm Model="@_downloadSettings" OnValidSubmit="@HandleSubmit">
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="url">Url</label>
+				<InputText id="url" class="form-control" placeholder="Url"
+						   @bind-Value="_downloadSettings.Url" />
+			</div>
+			<div class="form-group col-md-2">
+				<label for="extension">Extension</label>
+				<InputSelect id="extension" class="form-control" @bind-Value="_downloadSettings.Extension">
+					<option value=".mp4">.mp4</option>
+					<option value=".mp3">.mp3</option>
+				</InputSelect>
+			</div>
 		</div>
-		<div class="form-group col-md-2">
-			<label for="extension">Extension</label>
-			<InputSelect id="extension" class="form-control" @bind-Value="_downloadSettings.Extension">
-				<option value=".mp4">.mp4</option>
-				<option value=".mp3">.mp3</option>
-			</InputSelect>
-		</div>
-	</div>
-	<button class="btn btn-primary" type="submit" @onclick="HandleSubmit">Submit</button>
-</EditForm>
+		<button class="btn btn-primary" type="submit" @onclick="HandleSubmit">Submit</button>
+	</EditForm>
+	<div class="overlay" hidden="@_hideOverlay">Loading...</div>
+@*</div>*@
+
 
 @code {
-	private DownloadSettings _downloadSettings = new();
+	private DownloadSettings _downloadSettings = new() { Url = "", Extension = ".mp4" };
 	private string _url = @"home/downloadsettings";
+	private bool _hideOverlay = true;
 
 	public async Task HandleSubmit()
 	{
+		_hideOverlay = false;
 		var dataJson = JsonSerializer.Serialize(_downloadSettings);
 		var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
 		var response = await _httpClient.PostAsync(_url, stringContent);
-		await Task.Run(() => Console.WriteLine("submit11"));
+		_hideOverlay = true;
 	}
 }

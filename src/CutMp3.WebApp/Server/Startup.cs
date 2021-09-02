@@ -1,3 +1,5 @@
+using CutMp3.Application;
+using CutMp3.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +27,8 @@ namespace CutMp3.WebApp.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddTransient<IDownloader, YoutubeDownloader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

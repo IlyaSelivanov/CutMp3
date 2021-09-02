@@ -1,4 +1,5 @@
-﻿using CutMp3.Domain.Models;
+﻿using CutMp3.Domain;
+using CutMp3.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CutMp3.WebApp.Server.Controllers
@@ -7,6 +8,13 @@ namespace CutMp3.WebApp.Server.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private IDownloader _downloader;
+
+        public HomeController(IDownloader downloader)
+        {
+            _downloader = downloader;
+        }
+
         [HttpGet("int")]
         public IActionResult GetDownloadSettings()
         {
@@ -14,9 +22,10 @@ namespace CutMp3.WebApp.Server.Controllers
         }
 
         [HttpPost("downloadsettings")]
-        public IActionResult DownloadSettings(DownloadSettings settings)
+        public async Task<IActionResult> DownloadSettings(DownloadSettings settings)
         {
-            return Ok(settings);
+            string path = await _downloader.DownloadUrl(settings.Url);
+            return Ok();
         }
     }
 }

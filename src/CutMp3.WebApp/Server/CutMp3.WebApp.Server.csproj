@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CutMp3.Application\CutMp3.Application.csproj" />
     <ProjectReference Include="..\Client\CutMp3.WebApp.Client.csproj" />
     <ProjectReference Include="..\Shared\CutMp3.WebApp.Shared.csproj" />
   </ItemGroup>
