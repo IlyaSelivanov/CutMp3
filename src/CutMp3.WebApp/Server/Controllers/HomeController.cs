@@ -31,14 +31,14 @@ namespace CutMp3.WebApp.Server.Controllers
         {
             string path = await _downloader.DownloadUrl(settings.Url);
 
-            if (settings.Extension == MediaExtensions.Mp3.Extensions)
+            await Task.Run(() =>
             {
-                await Task.Run(() =>
+                if (settings.Extension == MediaExtensions.Mp3.Extensions)
                 {
                     _converter.ConvertMp4ToMp3(path);
                     System.IO.File.Delete(path);
-                });
-            }
+                }
+            });
 
             return Ok();
         }
