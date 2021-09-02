@@ -29,6 +29,7 @@ namespace CutMp3.WebApp.Server
             services.AddRazorPages();
 
             services.AddTransient<IDownloader, YoutubeDownloader>();
+            services.AddTransient<IConverter, MediaConverter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

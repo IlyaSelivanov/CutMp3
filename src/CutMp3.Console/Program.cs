@@ -1,6 +1,10 @@
 ﻿using CutMp3.Application;
+using MediaToolkit;
+using MediaToolkit.Model;
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using VideoLibrary;
 
 namespace CutMp3.UIConsole
 {
@@ -15,22 +19,22 @@ namespace CutMp3.UIConsole
             Console.WriteLine(await downloader.DownloadUrl("https://www.youtube.com/watch?v=XnURvcdOUvY"));
         }
 
-        //static void DownloadFromYoutube(string url)
-        //{
-        //    var source = @"C:\Users\Ilya\Downloads\";
-        //    var youtube = YouTube.Default;
-        //    var vid = youtube.GetVideo(url);
-        //    File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
+        static void DownloadFromYoutube(string url)
+        {
+            var source = @"C:\Users\Ilya\Downloads\";
+            var youtube = YouTube.Default;
+            var vid = youtube.GetVideo(url);
+            File.WriteAllBytes(source + vid.FullName, vid.GetBytes());
 
-        //    var inputFile = new MediaFile { Filename = source + vid.FullName };
-        //    var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
+            var inputFile = new MediaFile { Filename = source + vid.FullName };
+            var outputFile = new MediaFile { Filename = $"{source + vid.FullName}.mp3" };
 
-        //    using (var engine = new Engine())
-        //    {
-        //        engine.GetMetadata(inputFile);
+            using (var engine = new Engine())
+            {
+                engine.GetMetadata(inputFile);
 
-        //        engine.Convert(inputFile, outputFile);
-        //    }
-        //}
+                engine.Convert(inputFile, outputFile);
+            }
+        }
     }
 }

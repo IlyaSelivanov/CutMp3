@@ -36,5 +36,7 @@
 		var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
 		var response = await _httpClient.PostAsync(_url, stringContent);
 		_hideOverlay = true;
+
+		StateHasChanged();
 	}
 }

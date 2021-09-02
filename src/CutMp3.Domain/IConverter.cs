@@ -2,6 +2,6 @@
 {
     public interface IConverter
     {
-        void ConvertMp4ToMp3(string input, string output);
+        string ConvertMp4ToMp3(string path);
     }
 }
