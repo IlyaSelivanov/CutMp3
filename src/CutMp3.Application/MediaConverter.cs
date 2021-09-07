@@ -13,11 +13,14 @@ namespace CutMp3.Application
     {
         public string ConvertMp4ToMp3(string path)
         {
+            if(string.IsNullOrEmpty(path))
+                throw new ArgumentNullException("path");
+
             if (Path.GetExtension(path) != MediaExtensions.Mp4.Extensions)
                 throw new ArgumentException("Not valid file extension");
 
             var input = new MediaFile { Filename = path };
-            var outputFile = Path.Combine(
+            string outputFile = Path.Combine(
                 Path.GetDirectoryName(path),
                 Path.GetFileName(path).Replace(".mp4", ".mp3"));
             var output = new MediaFile { Filename = Path.Combine(Path.GetDirectoryName(path), outputFile) };
