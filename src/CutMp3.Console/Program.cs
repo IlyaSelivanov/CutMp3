@@ -1,19 +1,12 @@
 ﻿using CutMp3.Application;
 using CutMp3.Domain.Models;
-using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CutMp3.UIConsole
 {
     static class Program
     {
-        public static string playlistPath = @"C:\Users\Ilya\Downloads\Dreaming Cooper - Parallels.txt";
-        public static string mp3Path = @"C:\Users\Ilya\Downloads\Dreaming Cooper - Parallels.mp3";
+        public static string playlistPath = @"";
+        public static string mp3Path = @"";
 
         static async Task Main(string[] args)
         {
