@@ -6,7 +6,7 @@ namespace CutMp3.Application.Services
 {
     public class ToastService : IDisposable
     {
-        private Timer _countdown = new Timer(5000);
+        private Timer _countdown;
 
         public event Action<string, ToastLevel>? OnShow;
         public event Action? OnHide;
@@ -35,7 +35,7 @@ namespace CutMp3.Application.Services
         {
             if (_countdown == null)
             {
-                _countdown = new Timer(10000);
+                _countdown = new Timer(5000);
                 _countdown.Elapsed += HideToast;
                 _countdown.AutoReset = false;
             }

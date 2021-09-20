@@ -23,15 +23,8 @@
 	</div>
 	<button class="btn btn-primary" type="submit">Submit</button>
 </EditForm>
+
 <div class="overlay" hidden="@_hideOverlay">Loading...</div>
-
-<ul id="messagesList">
-	@foreach (var message in messages)
-	{
-		<li>@message</li>
-	}
-</ul>
-
 
 @code {
 	private DownloadSettings _downloadSettings = new() { Url = "", Extension = ".mp3" };
@@ -50,7 +43,7 @@
 		{
 			var encodedMsg = $"{user}: {message}";
 			messages.Add(encodedMsg);
-			toastService.ShowToast(encodedMsg, ToastLevel.Warning);
+			toastService.ShowToast(encodedMsg, ToastLevel.Info);
 			StateHasChanged();
 		});
 
@@ -59,10 +52,9 @@
 
 	public async Task HandleSubmit()
 	{
-		_hideOverlay = false;
 		var dataJson = JsonSerializer.Serialize(_downloadSettings);
+		_downloadSettings = new() { Url = "", Extension = ".mp3" };
 		var stringContent = new StringContent(dataJson, Encoding.UTF8, "application/json");
 		var response = await _httpClient.PostAsync(_url, stringContent);
-		_hideOverlay = true;
 	}
 }
