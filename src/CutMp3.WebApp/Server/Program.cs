@@ -1,4 +1,7 @@
-﻿namespace CutMp3.WebApp.Server
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
+namespace CutMp3.WebApp.Server
 {
     public static class Program
     {

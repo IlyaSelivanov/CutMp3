@@ -5,58 +5,57 @@
 @inject NavigationManager NavigationManager
 @inject ToastService toastService
 
-@*<div class="container">*@
-	<EditForm Model="@_downloadSettings" OnValidSubmit="@HandleSubmit">
-		<div class="form-row">
-			<div class="form-group col-md-6">
-				<label for="url">Url</label>
-				<InputText id="url" class="form-control" placeholder="Url"
-						   @bind-Value="_downloadSettings.Url" />
-			</div>
-			<div class="form-group col-md-2">
-				<label for="extension">Extension</label>
-				<InputSelect id="extension" class="form-control" @bind-Value="_downloadSettings.Extension">
-					<option value=".mp4">.mp4</option>
-					<option value=".mp3">.mp3</option>
-				</InputSelect>
-			</div>
+
+<EditForm Model="@_downloadSettings" OnValidSubmit="@HandleSubmit">
+	<div class="form-row">
+		<div class="form-group col-md-6">
+			<label for="url">Url</label>
+			<InputText id="url" class="form-control" placeholder="Url"
+					   @bind-Value="_downloadSettings.Url" />
 		</div>
-		<button class="btn btn-primary" type="submit">Submit</button>
-	</EditForm>
-	<div class="overlay" hidden="@_hideOverlay">Loading...</div>
-@*</div>*@
+		<div class="form-group col-md-2">
+			<label for="extension">Extension</label>
+			<InputSelect id="extension" class="form-control" @bind-Value="_downloadSettings.Extension">
+				<option value=".mp4">.mp4</option>
+				<option value=".mp3">.mp3</option>
+			</InputSelect>
+		</div>
+	</div>
+	<button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+<div class="overlay" hidden="@_hideOverlay">Loading...</div>
 
 <ul id="messagesList">
-    @foreach (var message in messages)
-    {
-        <li>@message</li>
-    }
+	@foreach (var message in messages)
+	{
+		<li>@message</li>
+	}
 </ul>
 
 
 @code {
-	private DownloadSettings _downloadSettings = new() { Url = "", Extension = ".mp4" };
+	private DownloadSettings _downloadSettings = new() { Url = "", Extension = ".mp3" };
 	private string _url = @"home/downloadsettings";
 	private bool _hideOverlay = true;
 	private HubConnection hubConnection;
 	private List<string> messages = new List<string>();
 
 	protected override async Task OnInitializedAsync()
-    {
-        hubConnection = new HubConnectionBuilder()
-            .WithUrl(NavigationManager.ToAbsoluteUri("/downloadhub"))
-            .Build();
+	{
+		hubConnection = new HubConnectionBuilder()
+			.WithUrl(NavigationManager.ToAbsoluteUri("/downloadhub"))
+			.Build();
 
-        hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
-        {
-            var encodedMsg = $"{user}: {message}";
-            messages.Add(encodedMsg);
+		hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
+		{
+			var encodedMsg = $"{user}: {message}";
+			messages.Add(encodedMsg);
 			toastService.ShowToast(encodedMsg, ToastLevel.Warning);
-            StateHasChanged();
-        });
+			StateHasChanged();
+		});
 
-        await hubConnection.StartAsync();
-    }
+		await hubConnection.StartAsync();
+	}
 
 	public async Task HandleSubmit()
 	{

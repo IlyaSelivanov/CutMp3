@@ -2,6 +2,8 @@
 using CutMp3.Domain.Models;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using System;
+using System.IO;
 
 namespace CutMp3.Application
 {

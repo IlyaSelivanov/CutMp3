@@ -4,10 +4,12 @@ using CutMp3.Domain.Models;
 using CutMp3.WebApp.Server.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Threading.Tasks;
 
 namespace CutMp3.WebApp.Server.Controllers
 {
-    [Route("[controller]")]
+	[Route("[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {

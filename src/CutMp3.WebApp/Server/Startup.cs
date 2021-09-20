@@ -1,12 +1,17 @@
 using CutMp3.Application;
-using CutMp3.Application.Services;
 using CutMp3.Domain;
 using CutMp3.WebApp.Server.Hubs;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace CutMp3.WebApp.Server
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
