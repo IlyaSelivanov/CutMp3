@@ -1,13 +1,8 @@
 using CutMp3.Application;
+using CutMp3.Application.Services;
 using CutMp3.Domain;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using CutMp3.WebApp.Server.Hubs;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Linq;
 
 namespace CutMp3.WebApp.Server
 {
@@ -20,8 +15,6 @@ namespace CutMp3.WebApp.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -30,11 +23,19 @@ namespace CutMp3.WebApp.Server
 
             services.AddTransient<IDownloader, YoutubeDownloader>();
             services.AddTransient<IConverter, MediaConverter>();
+
+            services.AddSignalR();
+            services.AddResponseCompression(opts =>
+            {
+                opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+                    new[] { "application/octet-stream" });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseResponseCompression();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -57,6 +58,7 @@ namespace CutMp3.WebApp.Server
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapHub<DownloadHub>("/downloadhub");
                 endpoints.MapFallbackToFile("index.html");
             });
         }

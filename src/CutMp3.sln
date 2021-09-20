@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutMp3.WebApp.Shared", "Cut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutMp3.UIConsole", "CutMp3.Console\CutMp3.UIConsole.csproj", "{B6583D73-E95C-4B83-972E-95E7549367F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutMp3.Domain", "CutMp3.Domain\CutMp3.Domain.csproj", "{9499E393-287A-43A2-8F59-2711FED00541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutMp3.Domain", "CutMp3.Domain\CutMp3.Domain.csproj", "{9499E393-287A-43A2-8F59-2711FED00541}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CutMp3.Application", "CutMp3.Application\CutMp3.Application.csproj", "{CFBC4D63-8045-4845-8558-D7F628806E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CutMp3.Application", "CutMp3.Application\CutMp3.Application.csproj", "{CFBC4D63-8045-4845-8558-D7F628806E2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

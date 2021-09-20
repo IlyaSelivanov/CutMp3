@@ -1,7 +1,9 @@
 ﻿using CutMp3.Domain;
 using CutMp3.Domain.Enums;
 using CutMp3.Domain.Models;
+using CutMp3.WebApp.Server.Hubs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CutMp3.WebApp.Server.Controllers
 {
@@ -9,15 +11,18 @@ namespace CutMp3.WebApp.Server.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private IDownloader _downloader;
-        private IConverter _converter;
+        private readonly IDownloader _downloader;
+        private readonly IConverter _converter;
+        private readonly IHubContext<DownloadHub> _hubContext;
 
         public HomeController(
             IDownloader downloader,
-            IConverter converter)
+            IConverter converter,
+            IHubContext<DownloadHub> hubContext)
         {
             _downloader = downloader;
             _converter = converter;
+            _hubContext = hubContext;
         }
 
         [HttpGet("int")]
@@ -39,6 +44,8 @@ namespace CutMp3.WebApp.Server.Controllers
                     System.IO.File.Delete(path);
                 }
             });
+
+            await _hubContext.Clients.All.SendAsync("ReceiveMessage", "user", $"File loaded at: {DateTime.Now}");
 
             return Ok();
         }

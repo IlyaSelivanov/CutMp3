@@ -7,9 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.7.21378.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.7.21378.6" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.0-preview.7.21378.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CutMp3.Application\CutMp3.Application.csproj" />
     <ProjectReference Include="..\..\CutMp3.Domain\CutMp3.Domain.csproj" />
     <ProjectReference Include="..\Shared\CutMp3.WebApp.Shared.csproj" />
   </ItemGroup>
