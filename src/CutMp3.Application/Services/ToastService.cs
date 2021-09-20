@@ -1,47 +1,54 @@
 ﻿using CutMp3.Domain.Enums;
+using System;
 using System.Timers;
 
 namespace CutMp3.Application.Services
 {
     public class ToastService : IDisposable
     {
-        public event Action<string, ToastLevel> OnShow;
-        public event Action OnHide;
-        private System.Timers.Timer Countdown;
+        private Timer _countdown = new Timer(10000);
+
+        public event Action<string, ToastLevel>? OnShow;
+        public event Action? OnHide;
+        
         public void ShowToast(string message, ToastLevel level)
         {
             OnShow?.Invoke(message, level);
             StartCountdown();
         }
+
         private void StartCountdown()
         {
             SetCountdown();
-            if (Countdown.Enabled)
+            if (_countdown.Enabled)
             {
-                Countdown.Stop();
-                Countdown.Start();
+                _countdown.Stop();
+                _countdown.Start();
             }
             else
             {
-                Countdown.Start();
+                _countdown.Start();
             }
         }
+
         private void SetCountdown()
         {
-            if (Countdown == null)
+            if (_countdown == null)
             {
-                Countdown = new System.Timers.Timer(10000);
-                Countdown.Elapsed += HideToast;
-                Countdown.AutoReset = false;
+                _countdown = new Timer(10000);
+                _countdown.Elapsed += HideToast;
+                _countdown.AutoReset = false;
             }
         }
+
         private void HideToast(object source, ElapsedEventArgs args)
         {
             OnHide?.Invoke();
         }
+
         public void Dispose()
         {
-            Countdown?.Dispose();
+            _countdown?.Dispose();
         }
     }
 }
