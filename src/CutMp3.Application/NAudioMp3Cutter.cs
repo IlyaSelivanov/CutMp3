@@ -12,10 +12,10 @@ namespace CutMp3.Application
         public string CutMp3(string mp3Path, PlayList playlist)
         {
             if(string.IsNullOrEmpty(mp3Path))
-                throw new ArgumentNullException(mp3Path);
+                throw new ArgumentNullException(nameof(mp3Path));
 
             if (playlist == null || playlist.Tracks.Count == 0)
-                throw new ArgumentNullException(mp3Path);
+                throw new ArgumentNullException(nameof(playlist));
 
             var dir = Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(mp3Path),
                 Path.GetFileNameWithoutExtension(mp3Path)));
