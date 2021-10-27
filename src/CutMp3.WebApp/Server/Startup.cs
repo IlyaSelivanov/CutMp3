@@ -1,4 +1,5 @@
 using CutMp3.Application;
+using CutMp3.Application.Services;
 using CutMp3.Domain;
 using CutMp3.WebApp.Server.Hubs;
 using Microsoft.AspNetCore.Builder;
@@ -11,7 +12,7 @@ using System.Linq;
 
 namespace CutMp3.WebApp.Server
 {
-	public class Startup
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -34,6 +35,13 @@ namespace CutMp3.WebApp.Server
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
+            });
+
+            services.AddHostedService<QueuedHostedService>();
+            services.AddSingleton<IBackgroundTaskQueue>(ctx => {
+                if (!int.TryParse(Configuration["QueueCapacity"], out var queueCapacity))
+                    queueCapacity = 100;
+                return new BackgroundTaskQueue(queueCapacity);
             });
         }
 
