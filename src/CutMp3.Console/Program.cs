@@ -7,8 +7,8 @@ namespace CutMp3.UIConsole
 {
 	static class Program
     {
-        public static string playlistPath = @"C:\Users\Ilya\Downloads\LUKHASH - Better Than Reality.txt";
-        public static string mp3Path = @"C:\Users\Ilya\Downloads\LUKHASH - Better Than Reality.mp3";
+        public static string playlistPath = @"";
+        public static string mp3Path = @"";
 
         static async Task Main(string[] args)
         {

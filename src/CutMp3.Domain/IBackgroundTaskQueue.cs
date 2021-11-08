@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CutMp3.Domain.Models;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6,9 +7,10 @@ namespace CutMp3.Domain
 {
     public interface IBackgroundTaskQueue
     {
-        ValueTask QueueBackgroundWorkItemAsync(Func<CancellationToken, ValueTask> workItem);
+        ValueTask QueueBackgroundWorkItemAsync(
+            Tuple<DownloadSettings, Func<CancellationToken, DownloadSettings, ValueTask>> workItem);
 
-        ValueTask<Func<CancellationToken, ValueTask>> DequeueAsync(
+        ValueTask<Tuple<DownloadSettings, Func<CancellationToken, DownloadSettings, ValueTask>>> DequeueAsync(
             CancellationToken cancellationToken);
     }
 }
